@@ -115,13 +115,17 @@ if(isset($_POST['type']))
 		$city = $_POST['city'];
 		$state = $_POST['state'];
 		$coun = $_POST['county'];
-		$query = 'select * , ("$mail1" like "%"+regnum+"%") as s from active_voters where 1';
+		$zip = $_POST['zip'];
+
+		$query = 'select *  from active_voters where 1';
 		if($state != "")
 			$query .= " && `RegState` = '$state' ";
 		if($coun != "")
 			$query .= " && `CountyCode` = '$coun' ";
 		if($city != "")
 			$query .= " && `RegCity` like '$city' ";
+		if($zip != "")
+			$query .= " && `RegZipCode` like '$zip' ";
 
 		var_dump($query);
 		$data = mysqli_query($con,$query);
@@ -222,7 +226,9 @@ else{
 						?>
 					</select>
 				</div>
-				
+				<label class="col-md-4">Zip : </label>
+				<div class="col-md-8"><input name="zip" class="form-control" ></div>
+
 				<p>Note : if you are not sure about some fields , leave them empty</p>
 				<br>
 				<button class="btn btn-info"> Submit</button>
