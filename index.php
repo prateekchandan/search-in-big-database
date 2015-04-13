@@ -73,8 +73,8 @@ function table_print($data){
 	  	echo '<td>'.$row['Gender'].'</td>';
 	  	echo '<td>'.$row['MailZip'].'</td>';
 	  	echo '<td>'.$address.'</td>';
-	  	echo '<td>'.$row['MailCity'].'</td>';
-	  	echo '<td>'.$mailstate[$row['MailState']].'</td>';
+	  	echo '<td>'.$row['RegCity'].'</td>';
+	  	echo '<td>'.$mailstate[$row['RegState']].'</td>';
 	  	echo '<td>'.$county[$row['CountyCode']].'</td>';
 	  	echo '</tr>';
 	  	if($i>$limit)
@@ -115,12 +115,15 @@ if(isset($_POST['type']))
 		$city = $_POST['city'];
 		$state = $_POST['state'];
 		$coun = $_POST['county'];
-		$data = mysqli_query($con , 'select * from active_voters where 
-				 CountyCode like "%'.$coun.'%" 
-				&& MailState like "%'.$state.'%"
-				&& MailCity like "%'.$city.'%"
-				&& Mail1 like "%'.$mail1.'%"
-				limit 2000' );
+		$query = 'select * from active_voters where 1';
+		if($state ! = "")
+			$query .= " && `RegState` == '$state' "
+		if($coun ! = "")
+			$query .= " && `CountyCode` == '$coun' "
+		if($city != "")
+			$query .= " && `RegCity` like '$city' "
+
+
 		table_print($data);
 	}
 	echo '
