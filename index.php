@@ -60,18 +60,22 @@ function table_print($data){
 
 	while($row = mysqli_fetch_assoc($data)){
 		$i++;
-		$address = '';
-		for ($j=1; $j <5 ; $j++) { 
-			if($row['Mail'.$j]!="")
-				$address.=$row['Mail'.$j].'<br>';
-		}
+		$address = $row['RegStNum'];
+		if($row['RegStFrac'] != "")
+			$address .= " , ".$row['RegStFrac'];
+		$address .= " , ".$row['RegStName'];
+		$address .= " ".$row['RegStType'];
+		$address .= " , ".$row['RegStUnitType'];
+		$address .= " , ".$row['RegStPreDirection'];
+		
+
 		echo '<tr><td>'.$row['StateVoterId'].'</td>';
 		echo '<td>'.$row['CountryVoterId'].'</td>';
 		echo '<td>'.$row['FName'].'</td>';
 		echo '<td>'.$row['LName'].'</td>';
 	  	echo '<td>'.$row['BirthDate'].'</td>';
 	  	echo '<td>'.$row['Gender'].'</td>';
-	  	echo '<td>'.$row['MailZip'].'</td>';
+	  	echo '<td>'.$row['RegZipCode'].'</td>';
 	  	echo '<td>'.$address.'</td>';
 	  	echo '<td>'.$row['RegCity'].'</td>';
 	  	echo '<td>'.$mailstate[$row['RegState']].'</td>';
@@ -123,9 +127,9 @@ if(isset($_POST['type']))
 		if($coun != "")
 			$query .= " && `CountyCode` = '$coun' ";
 		if($city != "")
-			$query .= " && `RegCity` like '$city' ";
+			$query .= " && `RegCity` like '%$city%' ";
 		if($zip != "")
-			$query .= " && `RegZipCode` like '$zip' ";
+			$query .= " && `RegZipCode` = '$zip' ";
 
 		var_dump($query);
 		$data = mysqli_query($con,$query);
