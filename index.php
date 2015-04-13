@@ -115,7 +115,7 @@ if(isset($_POST['type']))
 		$city = $_POST['city'];
 		$state = $_POST['state'];
 		$coun = $_POST['county'];
-		$query = 'select * from active_voters where 1';
+		$query = 'select * , ("$mail1" like "%"+regnum+"%") as s from active_voters where 1';
 		if($state != "")
 			$query .= " && `RegState` = '$state' ";
 		if($coun != "")
@@ -123,6 +123,7 @@ if(isset($_POST['type']))
 		if($city != "")
 			$query .= " && `RegCity` like '$city' ";
 
+		var_dump($query);
 		$data = mysqli_query($con,$query);
 		table_print($data);
 	}
