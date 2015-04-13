@@ -123,6 +123,7 @@ if(isset($_POST['type']))
 		if($city != "")
 			$query .= " && `RegCity` like '$city' ";
 
+		var_dump($query);
 
 		table_print($data);
 	}
