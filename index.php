@@ -63,9 +63,13 @@ function table_print($data){
 		$address = $row['RegStNum'];
 		if($row['RegStFrac'] != "")
 			$address .= " , ".$row['RegStFrac'];
-		$address .= " , ".$row['RegStName'];
-		$address .= " ".$row['RegStType'];
-		$address .= " , ".$row['RegStUnitType'];
+		if($row['RegStName']!="")
+			$address .= " , ".$row['RegStName'];
+		if($row['RegStType']!="")
+			$address .= " ".$row['RegStType'];
+		if($row['RegStUnitType']!="")
+			$address .= " , ".$row['RegStUnitType'];
+		if($row['RegStPreDirection']!="")
 		$address .= " , ".$row['RegStPreDirection'];
 		
 
