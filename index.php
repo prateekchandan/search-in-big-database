@@ -116,12 +116,12 @@ if(isset($_POST['type']))
 		$state = $_POST['state'];
 		$coun = $_POST['county'];
 		$query = 'select * from active_voters where 1';
-		if($state ! = "")
-			$query .= " && `RegState` == '$state' "
-		if($coun ! = "")
-			$query .= " && `CountyCode` == '$coun' "
+		if($state != "")
+			$query .= " && `RegState` == '$state' ";
+		if($coun != "")
+			$query .= " && `CountyCode` == '$coun' ";
 		if($city != "")
-			$query .= " && `RegCity` like '$city' "
+			$query .= " && `RegCity` like '$city' ";
 
 
 		table_print($data);
